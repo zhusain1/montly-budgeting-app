@@ -18,6 +18,8 @@ class Transactions extends Component {
         var tempAccount = '';
         var tempToken = '';
 
+        //TODO: Refactor and get values from local storage
+
         if(typeof( this.props.location.state) === "undefined" || this.props.location.state === undefined){
             this.props.history.push('/');
         } else{
@@ -29,7 +31,7 @@ class Transactions extends Component {
             account: tempAccount,
             accessToken: tempToken,
             transactions: [],
-            totalAmount: -999999
+            totalAmount: 0
         };
 
         this.transactionData('/AccountTransactionDetails');
@@ -109,13 +111,15 @@ class Transactions extends Component {
                                 <span className="icon">
                                     <AttachMoneyIcon/>
                                 </span>
-                                    <b className="accountName"> {transaction.name} on {transaction.date}  </b> 
+                                <b className="accountName"> {transaction.name} </b> 
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <div>
-                                    <b>Amount:</b>
-                                    ${transaction.amount}
+                                    <b>Amount: </b> ${transaction.amount}
+                                    <br/>
+                                    <b>Date:</b>
+                                    {' '}{transaction.date}
                                     <br/>
                                     {this.getCategoryData(transaction)}
                                 </div>

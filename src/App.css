@@ -79,3 +79,7 @@ a.link:hover, a.link:active{
 #transactions .MuiButton-text {
     margin: 8px;
 }
+
+.amount{
+    padding-left: 16px;
+}
