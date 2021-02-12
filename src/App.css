@@ -8,6 +8,7 @@ body, html{
     background-color: black !important;
     border: 2px solid black !important;
     color: white;
+    margin-bottom: 20px;
 }
 
 .MuiAccordionDetails-root{
@@ -75,4 +76,6 @@ a.link:hover, a.link:active{
     font-weight: 600;
 }
   
-
+#transactions .MuiButton-text {
+    margin: 8px;
+}

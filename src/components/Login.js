@@ -90,7 +90,7 @@ class Login extends Component {
                     <Alert severity="error"> {this.state.error}</Alert>
                 }   
                 <Typography variant="h6">
-                    Login
+                    Sign in
                 </Typography>
                 <form onSubmit={this.handleSubmit} autoComplete="off">
                     <TextField id="username" label="email" 

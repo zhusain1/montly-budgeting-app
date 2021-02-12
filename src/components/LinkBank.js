@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { PlaidLink } from 'react-plaid-link';
 import { withRouter } from 'react-router-dom';
 import api from '../apis';
-import ListAccounts from '../functional_components/ListAccounts';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -99,6 +98,14 @@ class LinkBank extends Component {
         })
     }
 
+    redirectToLogin(){
+        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, loggedIn: true }
+
+        sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+
+        this.props.history.push('/');
+    }
+
     render() {
         return (
             <div className= "Plaid">
@@ -117,7 +124,9 @@ class LinkBank extends Component {
                 </>
                 }
                 {this.state.accounts.length > 0 && 
-                    <ListAccounts props={this.state}/>
+                    <>
+                        { this.redirectToLogin() }
+                    </>
                 }
             </div>
         );
