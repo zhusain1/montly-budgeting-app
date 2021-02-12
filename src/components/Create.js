@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import MainCard from '../functional_components/MainCard';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import api from '../apis';
+import LinkBank from './LinkBank';
+import Typography from '@material-ui/core/Typography';
 import '../App.css';
 import Alert from '@material-ui/lab/Alert';
 
@@ -16,7 +17,8 @@ class Create extends Component {
            firstName: '',
            lastName: '',
            password: '',
-           error: ''
+           error: '',
+           linkBank: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,48 +46,68 @@ class Create extends Component {
             console.log(this.state);
 
             this.setState({
-                error: ''
+                error: '',
+                linkBank: true
             })
-
-            this.props.history.push(
-                '/linkBank',
-                { email: this.state.email }
-              );
+            
         })
         .catch(err => {
             this.setState({
-                error: 'Please fill out all fields'
+                error: 'Please fill out all fields',
+                linkBank: false
             })
         })
     } 
 
-    render(){
+    linkBank = () => {
+        if(this.state.linkBank){
+            return(
+                <LinkBank email={this.state.email}/>
+            );
+        } else{
+            return this.createAccount();
+        }
+    }
+
+    createAccount = () => {
         return(
-            <MainCard> 
+            <div>
                 {this.state.error.length > 0 &&
-                     <Alert severity="error"> {this.state.error}</Alert>
+                 <Alert severity="error"> {this.state.error}</Alert>
                 }
-                <div>
-                    <form onSubmit={this.handleSubmit} autoComplete="off" >
-                        <TextField id="username" label="email" onChange={e => this.setState({email: e.target.value})}/>
-                        <br/>
-                        <br/>
-                        <TextField id="firstName" label="first name" onChange={e => this.setState({firstName: e.target.value})}/>
-                        <br/>
-                        <br/>
-                        <TextField id="lastName" label="last name" onChange={e => this.setState({lastName: e.target.value})}/>
-                        <br/>
-                        <br/>
-                        <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
-                        <br/>
-                        <br/>
-                        <Button variant="outlined" type="submit">
-                            Create
-                        </Button>
-                    </form>
+                 <Typography variant="h6">
+                    Create Account
+                </Typography>
+                <form onSubmit={this.handleSubmit} autoComplete="off" >
+                    <TextField id="username" label="email" onChange={e => this.setState({email: e.target.value})}/>
                     <br/>
-                </div>
-            </MainCard>
+                    <br/>
+                    <TextField id="firstName" label="first name" onChange={e => this.setState({firstName: e.target.value})}/>
+                    <br/>
+                    <br/>
+                    <TextField id="lastName" label="last name" onChange={e => this.setState({lastName: e.target.value})}/>
+                    <br/>
+                    <br/>
+                    <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
+                    <br/>
+                    <br/>
+                    <Button variant="outlined" type="submit">
+                        Create
+                    </Button>
+                </form>
+                <br/>
+            </div>
+        );
+    }
+
+    render(){
+
+        const renderPage = this.linkBank();
+
+        return(
+            <>
+                { renderPage }
+            </>
         );
     }
 }

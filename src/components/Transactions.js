@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MainCard from '../functional_components/MainCard';
 import '../App.css';
 import apis from '../apis';
 import Accordion from '@material-ui/core/Accordion';
@@ -81,7 +80,7 @@ class Transactions extends Component {
 
     render(){
         return(
-            <MainCard> 
+            <div> 
                 {this.state.accessToken.length > 0 &&
                 <div id= "transactions">
                     <p>
@@ -123,7 +122,7 @@ class Transactions extends Component {
                             </AccordionDetails>
                         </Accordion>)}
                 </div>}
-            </MainCard>
+            </div>
         );
     }
 }

@@ -20,8 +20,12 @@ const useStyles = makeStyles(() => ({
 export default function ListAccounts({props}) {
     const classes = useStyles();
 
+
     return (
     <div className={classes.root}>
+        <Typography variant="h6">
+            Accounts
+        </Typography>
         {props.accounts.map((account) =>
          <Accordion key={account.account_id}>
             <AccordionSummary
@@ -42,7 +46,9 @@ export default function ListAccounts({props}) {
                         to={{
                             pathname: "/transactions" ,
                             state: { account: account, token: props.accessToken }
-                        }}>
+                        }}
+                        className = "link"
+                        >
                             View transactions
                     </Link>
                     <br/>

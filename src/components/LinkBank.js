@@ -3,24 +3,19 @@ import { PlaidLink } from 'react-plaid-link';
 import { withRouter } from 'react-router-dom';
 import api from '../apis';
 import ListAccounts from '../functional_components/ListAccounts';
+import Typography from '@material-ui/core/Typography';
+
 
 class LinkBank extends Component {
 
     constructor(props){
         super(props);
-        var email = '';
-
-        if(typeof( this.props.children.location.state) === "undefined"){
-            this.props.history.push('/create');
-        } else{
-            email = this.props.children.location.state.email;
-        }
 
         this.state = {
             linkToken:  '',
             accounts: [],
             accessToken: '',
-            email: email
+            email: this.props.email
         };
 
         const url = '/LinkToken'
@@ -108,12 +103,18 @@ class LinkBank extends Component {
         return (
             <div className= "Plaid">
                 {this.state.accounts.length < 1 && 
+                 <> 
+                    <Typography variant="h6">
+                        Link Bank Account
+                    </Typography>
+                    <br/>  
                     <PlaidLink
                     token= {this.state.linkToken}
                     onSuccess={this.onSuccess}
-                >
-                        Connect to bank
-                </PlaidLink>
+                    >
+                            Connect to bank
+                    </PlaidLink>
+                </>
                 }
                 {this.state.accounts.length > 0 && 
                     <ListAccounts props={this.state}/>
