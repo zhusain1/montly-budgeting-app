@@ -92,7 +92,7 @@ class Transactions extends Component {
                         <b> Total balance:  </b> ${this.state.account.balances.current}
                     </p>
                     <p>
-                        <b> Monthly balance:  </b> ${this.state.totalAmount}
+                        <b> Monthly Spending:  </b> ${this.state.totalAmount}
                     </p>
                     <Button onClick={() => this.sortLargeTransaction()}>
                         Sort by larget transaction
