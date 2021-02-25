@@ -2,25 +2,18 @@ import React, { Component } from 'react';
 import { PlaidLink } from 'react-plaid-link';
 import { withRouter } from 'react-router-dom';
 import api from '../apis';
-import ListAccounts from '../functional_components/ListAccounts';
+import Typography from '@material-ui/core/Typography';
 
 class LinkBank extends Component {
 
     constructor(props){
         super(props);
-        var email = '';
-
-        if(typeof( this.props.children.location.state) === "undefined"){
-            this.props.history.push('/create');
-        } else{
-            email = this.props.children.location.state.email;
-        }
 
         this.state = {
             linkToken:  '',
             accounts: [],
             accessToken: '',
-            email: email
+            email: this.props.email
         };
 
         const url = '/LinkToken'
@@ -49,7 +42,6 @@ class LinkBank extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res.data);
             this.setState({
                 accounts: res.data
             })
@@ -57,8 +49,6 @@ class LinkBank extends Component {
     }
 
     onSuccess = (token, metadata) => {
-        console.log(token);
-
         // Call Token Exchange Endpoint
 
         const url = '/TokenExchange'
@@ -72,7 +62,6 @@ class LinkBank extends Component {
             url: url,
             data: publicToken
         }).then((res) => {
-            console.log(res.data);
 
             this.setState({
                 accessToken: res.data.access_token
@@ -82,8 +71,6 @@ class LinkBank extends Component {
 
             this.transactionData(res.data.access_token);
         })
-
-        console.log(metadata)
     };
 
     // api call to save access token to DB for a specific user
@@ -100,25 +87,41 @@ class LinkBank extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res);
+    
         })
+    }
+
+    redirectToLogin(){
+        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, loggedIn: true }
+
+        sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+
+        this.props.history.push('/');
     }
 
     render() {
         return (
-            <div className= "Plaid">
-                {this.state.accounts.length < 1 && 
-                    <PlaidLink
-                    token= {this.state.linkToken}
-                    onSuccess={this.onSuccess}
-                >
-                        Connect to bank
-                </PlaidLink>
-                }
-                {this.state.accounts.length > 0 && 
-                    <ListAccounts props={this.state}/>
-                }
-            </div>
+                <div className= "Plaid">
+                    {this.state.accounts.length < 1 && 
+                    <> 
+                        <Typography variant="h6">
+                            Link Bank Account
+                        </Typography>
+                        <br/>  
+                        <PlaidLink
+                        token= {this.state.linkToken}
+                        onSuccess={this.onSuccess}
+                        >
+                                Connect to bank
+                        </PlaidLink>
+                    </>
+                    }
+                    {this.state.accounts.length > 0 && 
+                        <>
+                            { this.redirectToLogin() }
+                        </>
+                    }
+                </div>
         );
     }
 }
