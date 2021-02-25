@@ -17,41 +17,60 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
+const getTotalAccountBalance  = (accounts) => {
+    let total = 0
+
+    accounts.forEach(account => {
+        total = total + account.balances.current;
+    });
+
+    return total.toFixed(2)
+}
+
 export default function ListAccounts({props}) {
     const classes = useStyles();
 
+
     return (
-    <div className={classes.root}>
-        {props.accounts.map((account) =>
-         <Accordion key={account.account_id}>
-            <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            >
-            <Typography className={classes.heading}>
-               <span className="icon">
-                <AccountBalanceIcon/>
-               </span>
-               <b className="accountName"> {account.name} </b> 
+        <div className={classes.root}>
+            <Typography variant="h6">
+                Accounts
             </Typography>
-         </AccordionSummary>
-            <AccordionDetails>
-                <div>
-                    <Link
-                        to={{
-                            pathname: "/transactions" ,
-                            state: { account: account, token: props.accessToken }
-                        }}>
-                            View transactions
-                    </Link>
-                    <br/>
-                    <b>Type:</b> {account.subtype}
-                    <br/>
-                    <b>Balance:</b> ${account.balances.current}
-                </div>
-            </AccordionDetails>
-        </Accordion>)}           
-    </div>
+            <Typography variant="h6">
+                Account Balance: ${getTotalAccountBalance(props.accounts)}
+            </Typography>
+            {props.accounts.map((account) =>
+            <Accordion key={account.account_id}>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                <Typography className={classes.heading}>
+                <span className="icon">
+                    <AccountBalanceIcon/>
+                </span>
+                <b className="accountName"> {account.name} </b> 
+                </Typography>
+            </AccordionSummary>
+                <AccordionDetails>
+                    <div>
+                        <Link
+                            to={{
+                                pathname: "/transactions" ,
+                                state: { account: account, token: props.accessToken }
+                            }}
+                            className = "link"
+                            >
+                                View transactions
+                        </Link>
+                        <br/>
+                        <b>Type:</b> {account.subtype}
+                        <br/>
+                        <b>Balance:</b> ${account.balances.current.toFixed(2)}
+                    </div>
+                </AccordionDetails>
+            </Accordion>)}           
+        </div>
     );
 }
