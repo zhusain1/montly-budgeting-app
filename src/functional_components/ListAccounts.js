@@ -17,6 +17,20 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
+const getTotalAccountBalance  = (accounts) => {
+    console.log(accounts);
+
+    let total = 0
+
+    accounts.forEach(account => {
+        total = total + account.balances.current;
+    });
+
+    console.log(total);
+
+    return total.toFixed(2)
+}
+
 export default function ListAccounts({props}) {
     const classes = useStyles();
 
@@ -25,6 +39,9 @@ export default function ListAccounts({props}) {
         <div className={classes.root}>
             <Typography variant="h6">
                 Accounts
+            </Typography>
+            <Typography variant="h6">
+                Account Balance: ${getTotalAccountBalance(props.accounts)}
             </Typography>
             {props.accounts.map((account) =>
             <Accordion key={account.account_id}>
@@ -54,7 +71,7 @@ export default function ListAccounts({props}) {
                         <br/>
                         <b>Type:</b> {account.subtype}
                         <br/>
-                        <b>Balance:</b> ${account.balances.current}
+                        <b>Balance:</b> ${account.balances.current.toFixed(2)}
                     </div>
                 </AccordionDetails>
             </Accordion>)}           
