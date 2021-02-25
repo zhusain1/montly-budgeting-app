@@ -55,7 +55,7 @@ class Create extends Component {
         })
         .catch(err => {
             this.setState({
-                error: 'Please fill out all fields',
+                error: err.response.data,
                 linkBank: false
             })
         })

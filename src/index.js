@@ -5,6 +5,7 @@ import Transactions from './components/Transactions';
 import Login from './components/Login';
 import Create from './components/Create';
 import Logout from './functional_components/Logout'
+import Error from './functional_components/Error'
 import {
     BrowserRouter as Router,
     Route,
@@ -19,6 +20,7 @@ ReactDOM.render(
                 <Route exact path = "/create" component={Create} />
                 <Route exact path = "/logout" component={Logout} />
                 <Route exact path="/transactions" component={Transactions} />
+                <Route component={Error} />
             </Switch>
     </Router>,
     document.querySelector('#root')

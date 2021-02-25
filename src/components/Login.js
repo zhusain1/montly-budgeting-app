@@ -158,7 +158,7 @@ class Login extends Component {
         })
         .catch(err => {
             this.setState({
-                error: 'Invalid username/password',
+                error: err.response.data,
                 password: ''
             })
         })
