@@ -17,9 +17,7 @@ const useStyles = makeStyles(() => ({
     },
 
     nav: {
-        background: '#232526', 
-        background: '-webkit-linear-gradient(to top, #414345, #232526)', 
-        background: 'linear-gradient(to top, #414345, #232526)', 
+        background: '#232526'
     }
   }));
 
@@ -39,7 +37,7 @@ export default function LoggedInNavbar() {
                 <Toolbar>
                     <Typography variant="h6" className={classes.root}>
                         <Link to='/'>
-                            <img src={logo}/>
+                            <img src={logo} alt=""/>
                         </Link>
                     </Typography>
                     <Button onClick={logout}>
