@@ -6,6 +6,8 @@ import LinkBank from './LinkBank';
 import Typography from '@material-ui/core/Typography';
 import '../App.css';
 import Alert from '@material-ui/lab/Alert';
+import MainCard from '../functional_components/MainCard';
+import Navbar from '../functional_components/Navbar'
 
 class Create extends Component {
 
@@ -106,7 +108,12 @@ class Create extends Component {
 
         return(
             <>
-                { renderPage }
+                <Navbar/>
+                <MainCard>
+                    <>
+                        { renderPage }
+                    </>
+                </MainCard>
             </>
         );
     }

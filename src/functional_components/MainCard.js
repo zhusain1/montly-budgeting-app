@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './Navbar';
 
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +22,6 @@ export default function MainCard({children}) {
     return (
     <React.Fragment>
         <CssBaseline />
-        <Navbar/>
         <Container maxWidth="sm">
             <Card className={classes.card} variant="outlined">
                 <Typography component="div" style={{  textAlign: 'center' }}>

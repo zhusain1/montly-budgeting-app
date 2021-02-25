@@ -22,42 +22,42 @@ export default function ListAccounts({props}) {
 
 
     return (
-    <div className={classes.root}>
-        <Typography variant="h6">
-            Accounts
-        </Typography>
-        {props.accounts.map((account) =>
-         <Accordion key={account.account_id}>
-            <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            >
-            <Typography className={classes.heading}>
-               <span className="icon">
-                <AccountBalanceIcon/>
-               </span>
-               <b className="accountName"> {account.name} </b> 
+        <div className={classes.root}>
+            <Typography variant="h6">
+                Accounts
             </Typography>
-         </AccordionSummary>
-            <AccordionDetails>
-                <div>
-                    <Link
-                        to={{
-                            pathname: "/transactions" ,
-                            state: { account: account, token: props.accessToken }
-                        }}
-                        className = "link"
-                        >
-                            View transactions
-                    </Link>
-                    <br/>
-                    <b>Type:</b> {account.subtype}
-                    <br/>
-                    <b>Balance:</b> ${account.balances.current}
-                </div>
-            </AccordionDetails>
-        </Accordion>)}           
-    </div>
+            {props.accounts.map((account) =>
+            <Accordion key={account.account_id}>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                <Typography className={classes.heading}>
+                <span className="icon">
+                    <AccountBalanceIcon/>
+                </span>
+                <b className="accountName"> {account.name} </b> 
+                </Typography>
+            </AccordionSummary>
+                <AccordionDetails>
+                    <div>
+                        <Link
+                            to={{
+                                pathname: "/transactions" ,
+                                state: { account: account, token: props.accessToken }
+                            }}
+                            className = "link"
+                            >
+                                View transactions
+                        </Link>
+                        <br/>
+                        <b>Type:</b> {account.subtype}
+                        <br/>
+                        <b>Balance:</b> ${account.balances.current}
+                    </div>
+                </AccordionDetails>
+            </Accordion>)}           
+        </div>
     );
 }

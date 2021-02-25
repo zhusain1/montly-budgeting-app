@@ -7,6 +7,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from 'react-router-dom';
 import api from '../apis';
 import ListAccounts from '../functional_components/ListAccounts';
+import MainCard from '../functional_components/MainCard';
+import Navbar from '../functional_components/Navbar';
+import LoggedInNavbar from '../functional_components/LoggedInNavbar';
 import Alert from '@material-ui/lab/Alert';
 
 const styles = () => ({
@@ -85,28 +88,33 @@ class Login extends Component {
 
         console.log(classes.input)
         return(
-            <div>
-                 {this.state.error.length > 0 &&
-                    <Alert severity="error"> {this.state.error}</Alert>
-                }   
-                <Typography variant="h6">
-                    Sign in
-                </Typography>
-                <form onSubmit={this.handleSubmit} autoComplete="off">
-                    <TextField id="username" label="email" 
-                    InputProps={{className: classes.input}}
-                    onChange={e => this.setState({email: e.target.value})} size="medium"/>
-                    <br/>
-                    <br/>
-                    <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
-                    <br/>
-                    <br/>
-                    <Button variant="outlined" type="submit">
-                        Login
-                    </Button>
-                </form>
-                <br/>
-            </div>
+            <>
+                <Navbar/>
+                <MainCard>
+                    <div>
+                        {this.state.error.length > 0 &&
+                            <Alert severity="error"> {this.state.error}</Alert>
+                        }   
+                        <Typography variant="h6">
+                            Sign in
+                        </Typography>
+                        <form onSubmit={this.handleSubmit} autoComplete="off">
+                            <TextField id="username" label="email" 
+                            InputProps={{className: classes.input}}
+                            onChange={e => this.setState({email: e.target.value})} size="medium"/>
+                            <br/>
+                            <br/>
+                            <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
+                            <br/>
+                            <br/>
+                            <Button variant="outlined" type="submit">
+                                Login
+                            </Button>
+                        </form>
+                        <br/>
+                    </div>
+                </MainCard>
+            </>
         );
     }
 
@@ -116,7 +124,12 @@ class Login extends Component {
             return this.loginForm(classes);
         } else{
             return (
-                <ListAccounts props={this.state}/>     
+                <>
+                    <LoggedInNavbar/>
+                    <MainCard>
+                        <ListAccounts props={this.state}/>  
+                    </MainCard> 
+                </>
             );
         }
     }

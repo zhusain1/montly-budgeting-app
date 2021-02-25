@@ -4,7 +4,7 @@ import React from 'react';
 import Transactions from './components/Transactions';
 import Login from './components/Login';
 import Create from './components/Create';
-import MainCard from './functional_components/MainCard';
+import Logout from './functional_components/Logout'
 import {
     BrowserRouter as Router,
     Route,
@@ -14,13 +14,12 @@ import {
 // Take the react component and show it on the screen
 ReactDOM.render(
     <Router>
-        <MainCard>
             <Switch>
                 <Route exact path = "/" component={Login} />
                 <Route exact path = "/create" component={Create} />
+                <Route exact path = "/logout" component={Logout} />
                 <Route exact path="/transactions" component={Transactions} />
             </Switch>
-        </MainCard>
     </Router>,
     document.querySelector('#root')
 );

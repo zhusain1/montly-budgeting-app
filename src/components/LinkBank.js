@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import api from '../apis';
 import Typography from '@material-ui/core/Typography';
 
-
 class LinkBank extends Component {
 
     constructor(props){
@@ -108,27 +107,27 @@ class LinkBank extends Component {
 
     render() {
         return (
-            <div className= "Plaid">
-                {this.state.accounts.length < 1 && 
-                 <> 
-                    <Typography variant="h6">
-                        Link Bank Account
-                    </Typography>
-                    <br/>  
-                    <PlaidLink
-                    token= {this.state.linkToken}
-                    onSuccess={this.onSuccess}
-                    >
-                            Connect to bank
-                    </PlaidLink>
-                </>
-                }
-                {this.state.accounts.length > 0 && 
-                    <>
-                        { this.redirectToLogin() }
+                <div className= "Plaid">
+                    {this.state.accounts.length < 1 && 
+                    <> 
+                        <Typography variant="h6">
+                            Link Bank Account
+                        </Typography>
+                        <br/>  
+                        <PlaidLink
+                        token= {this.state.linkToken}
+                        onSuccess={this.onSuccess}
+                        >
+                                Connect to bank
+                        </PlaidLink>
                     </>
-                }
-            </div>
+                    }
+                    {this.state.accounts.length > 0 && 
+                        <>
+                            { this.redirectToLogin() }
+                        </>
+                    }
+                </div>
         );
     }
 }

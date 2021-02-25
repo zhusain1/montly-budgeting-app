@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import logo from '../logo.png';
 
 const useStyles = makeStyles(() => ({
@@ -23,6 +24,15 @@ const useStyles = makeStyles(() => ({
   }));
 
 export default function LoggedInNavbar() {
+    
+    const history = useHistory();
+
+    const logout = () => {
+        console.log('inside logout function')
+        sessionStorage.clear();
+        history.push('/logout');
+    }
+
     const classes = useStyles();
     return (
         <div>
@@ -33,7 +43,7 @@ export default function LoggedInNavbar() {
                             <img src={logo}/>
                         </Link>
                     </Typography>
-                    <Button>
+                    <Button onClick={logout}>
                         Logout
                     </Button>
                 </Toolbar>

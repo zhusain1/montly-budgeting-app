@@ -9,6 +9,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import MainCard from '../functional_components/MainCard';
+import LoggedInNavbar from '../functional_components/LoggedInNavbar';
+
 
 class Transactions extends Component {
 
@@ -82,51 +85,56 @@ class Transactions extends Component {
 
     render(){
         return(
-            <div> 
-                {this.state.accessToken.length > 0 &&
-                <div id= "transactions">
-                    <p>
-                        <b> Account Name: </b> {this.state.account.name}
-                    </p>
-                    <p>
-                        <b> Total balance:  </b> ${this.state.account.balances.current}
-                    </p>
-                    <p>
-                        <b> Monthly Spending:  </b> ${this.state.totalAmount}
-                    </p>
-                    <Button onClick={() => this.sortLargeTransaction()}>
-                        Sort by larget transaction
-                    </Button>
-                    <Button onClick={() => this.sortDateTransaction()}>
-                        Sort by date
-                    </Button>
-                    {this.state.transactions.map((transaction, index) =>
-                        <Accordion key={index}>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                                >
-                                <Typography>
-                                <span className="icon">
-                                    <AttachMoneyIcon/>
-                                </span>
-                                <b className="accountName"> {transaction.name} </b> 
-                                </Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <div>
-                                    <b>Amount: </b> ${transaction.amount}
-                                    <br/>
-                                    <b>Date:</b>
-                                    {' '}{transaction.date}
-                                    <br/>
-                                    {this.getCategoryData(transaction)}
-                                </div>
-                            </AccordionDetails>
-                        </Accordion>)}
-                </div>}
-            </div>
+            <>
+                <LoggedInNavbar/>
+                    <MainCard>
+                        <div> 
+                            {this.state.accessToken.length > 0 &&
+                            <div id= "transactions">
+                                <p>
+                                    <b> Account Name: </b> {this.state.account.name}
+                                </p>
+                                <p>
+                                    <b> Total balance:  </b> ${this.state.account.balances.current}
+                                </p>
+                                <p>
+                                    <b> Monthly Spending:  </b> ${this.state.totalAmount}
+                                </p>
+                                <Button onClick={() => this.sortLargeTransaction()}>
+                                    Sort by larget transaction
+                                </Button>
+                                <Button onClick={() => this.sortDateTransaction()}>
+                                    Sort by date
+                                </Button>
+                                {this.state.transactions.map((transaction, index) =>
+                                    <Accordion key={index}>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                            >
+                                            <Typography>
+                                            <span className="icon">
+                                                <AttachMoneyIcon/>
+                                            </span>
+                                            <b className="accountName"> {transaction.name} </b> 
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <div>
+                                                <b>Amount: </b> ${transaction.amount}
+                                                <br/>
+                                                <b>Date:</b>
+                                                {' '}{transaction.date}
+                                                <br/>
+                                                {this.getCategoryData(transaction)}
+                                            </div>
+                                        </AccordionDetails>
+                                    </Accordion>)}
+                            </div>}
+                        </div>
+                    </MainCard>
+            </>
         );
     }
 }
