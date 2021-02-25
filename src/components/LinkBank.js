@@ -42,7 +42,6 @@ class LinkBank extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res.data);
             this.setState({
                 accounts: res.data
             })
@@ -50,8 +49,6 @@ class LinkBank extends Component {
     }
 
     onSuccess = (token, metadata) => {
-        console.log(token);
-
         // Call Token Exchange Endpoint
 
         const url = '/TokenExchange'
@@ -65,7 +62,6 @@ class LinkBank extends Component {
             url: url,
             data: publicToken
         }).then((res) => {
-            console.log(res.data);
 
             this.setState({
                 accessToken: res.data.access_token
@@ -75,8 +71,6 @@ class LinkBank extends Component {
 
             this.transactionData(res.data.access_token);
         })
-
-        console.log(metadata)
     };
 
     // api call to save access token to DB for a specific user
@@ -93,7 +87,7 @@ class LinkBank extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res);
+    
         })
     }
 

@@ -18,15 +18,11 @@ const useStyles = makeStyles(() => ({
   }));
 
 const getTotalAccountBalance  = (accounts) => {
-    console.log(accounts);
-
     let total = 0
 
     accounts.forEach(account => {
         total = total + account.balances.current;
     });
-
-    console.log(total);
 
     return total.toFixed(2)
 }

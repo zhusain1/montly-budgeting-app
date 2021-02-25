@@ -43,10 +43,6 @@ class Create extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res.data);
-
-            console.log(this.state);
-
             this.setState({
                 error: '',
                 linkBank: true

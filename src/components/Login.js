@@ -42,8 +42,6 @@ class Login extends Component {
                 accessToken: access_token,
                 error: ''
              };
-
-             console.log(this.state)
         } else{
             this.state = {
                 email: '',
@@ -67,8 +65,7 @@ class Login extends Component {
             method: 'post',
             url: url,
             data: req
-        }).then((res) => {
-            console.log(res.data);
+        }).then((res) => {        
             this.setState({
                 accounts: res.data,
                 error: ''
@@ -84,9 +81,6 @@ class Login extends Component {
     }
 
     loginForm = (classes) => {
-        console.log('Display login form');
-
-        console.log(classes.input)
         return(
             <>
                 <Navbar/>
@@ -168,9 +162,7 @@ class Login extends Component {
 
         const { classes } = this.props;
         const loggedIn = this.isLoggedIn(classes);
-
-        console.log(classes)
-
+        
         return(
             <div>
                 {loggedIn}

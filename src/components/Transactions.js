@@ -55,7 +55,6 @@ class Transactions extends Component {
             url: url,
             data: req
         }).then((res) => {
-            console.log(res.data);
             this.setState({
                 transactions: res.data.transactions,
                 totalAmount: res.data.totalAmount

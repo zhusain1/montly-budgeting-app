@@ -28,7 +28,6 @@ export default function LoggedInNavbar() {
     const history = useHistory();
 
     const logout = () => {
-        console.log('inside logout function')
         sessionStorage.clear();
         history.push('/logout');
     }
