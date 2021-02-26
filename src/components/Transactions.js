@@ -100,7 +100,7 @@ class Transactions extends Component {
                                     <b> Monthly Spending:  </b> ${this.state.totalAmount}
                                 </p>
                                 <Button onClick={() => this.sortLargeTransaction()}>
-                                    Sort by larget transaction
+                                    Sort by largest transaction
                                 </Button>
                                 <Button onClick={() => this.sortDateTransaction()}>
                                     Sort by date
