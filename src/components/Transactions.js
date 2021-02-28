@@ -73,6 +73,9 @@ class Transactions extends Component {
         );
     }
 
+    sortLargeWithdrawls = () => {
+        this.transactionData('/LowToHighSortedAccountTransactionDetails');
+    }
 
     sortLargeTransaction = () => {
         this.transactionData('/SortedAccountTransactionDetails');
@@ -100,11 +103,17 @@ class Transactions extends Component {
                                     <b> Monthly Spending:  </b> ${this.state.totalAmount}
                                 </p>
                                 <Button onClick={() => this.sortLargeTransaction()}>
-                                    Sort by largest transaction
+                                    Sort by largest desposit
                                 </Button>
+                                <br/>
+                                <Button onClick={() => this.sortLargeWithdrawls()}>
+                                    Sort by largest withdrawal
+                                </Button>
+                                <br/>
                                 <Button onClick={() => this.sortDateTransaction()}>
                                     Sort by date
                                 </Button>
+                                <br/>
                                 {this.state.transactions.map((transaction, index) =>
                                     <Accordion key={index}>
                                         <AccordionSummary
