@@ -103,7 +103,7 @@ class Transactions extends Component {
                                     <b> Monthly Spending:  </b> ${this.state.totalAmount}
                                 </p>
                                 <Button onClick={() => this.sortLargeTransaction()}>
-                                    Sort by largest desposit
+                                    Sort by largest deposit
                                 </Button>
                                 <br/>
                                 <Button onClick={() => this.sortLargeWithdrawls()}>
