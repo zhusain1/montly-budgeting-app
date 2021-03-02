@@ -77,6 +77,10 @@ class Login extends Component {
 
             sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
 
+        }).catch(err => {
+            this.setState({
+                error: 'Error logging in with account'
+            })
         })
     }
 
@@ -144,11 +148,23 @@ class Login extends Component {
             url: url,
             data: req
         }).then((res) => {
-            this.setState({
-                accessToken: res.data
-            });
+            if(res.data.access_token.length !== 0){
+                this.setState({
+                    accessToken: res.data.access_token
+                });
+    
+                this.transactionData(res.data.access_token);
+            } else{
+                this.setState({
+                    email: res.data.email
+                });
 
-            this.transactionData(res.data);
+
+                this.props.history.push({
+                    pathname: '/create',
+                    state: { email: this.state.email }
+                  })
+            }
         })
         .catch(err => {
             this.setState({

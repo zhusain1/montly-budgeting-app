@@ -14,13 +14,21 @@ class Create extends Component {
     constructor(props){
         super(props);
 
+        var propEmail = '';
+        var propLinkBank = false;
+
+        if(typeof( this.props.location.state) !== "undefined" || this.props.location.state !== undefined){
+            propEmail = this.props.location.state.email;
+            propLinkBank = true;
+        } 
+
         this.state = {
-           email: '',
+           email: propEmail,
            firstName: '',
            lastName: '',
            password: '',
            error: '',
-           linkBank: false
+           linkBank: propLinkBank
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
