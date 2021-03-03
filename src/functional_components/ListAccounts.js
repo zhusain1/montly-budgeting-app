@@ -17,6 +17,13 @@ const useStyles = makeStyles(() => ({
     }
   }));
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+  
+
 const getTotalAccountBalance  = (accounts) => {
     let total = 0
 
@@ -33,11 +40,11 @@ export default function ListAccounts({props}) {
 
     return (
         <div className={classes.root}>
-            <Typography variant="h6">
+            <Typography variant="h5">
                 Accounts
             </Typography>
             <Typography variant="h6">
-                Account Balance: ${getTotalAccountBalance(props.accounts)}
+                Total Balance: {formatter.format(getTotalAccountBalance(props.accounts))}
             </Typography>
             {props.accounts.map((account) =>
             <Accordion key={account.account_id}>
@@ -67,7 +74,7 @@ export default function ListAccounts({props}) {
                         <br/>
                         <b>Type:</b> {account.subtype}
                         <br/>
-                        <b>Balance:</b> ${account.balances.current.toFixed(2)}
+                        <b>Balance:</b> {formatter.format(account.balances.current)}
                     </div>
                 </AccordionDetails>
             </Accordion>)}           

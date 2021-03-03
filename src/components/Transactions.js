@@ -13,6 +13,12 @@ import MainCard from '../functional_components/MainCard';
 import LoggedInNavbar from '../functional_components/LoggedInNavbar';
 
 
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+})
+
 class Transactions extends Component {
 
     constructor(props){
@@ -97,10 +103,10 @@ class Transactions extends Component {
                                     <b> Account Name: </b> {this.state.account.name}
                                 </p>
                                 <p>
-                                    <b> Total balance:  </b> ${this.state.account.balances.current}
+                                    <b> Total balance:  </b> {formatter.format(this.state.account.balances.current)}
                                 </p>
                                 <p>
-                                    <b> Monthly Spending:  </b> ${this.state.totalAmount}
+                                    <b> Monthly Spending:  </b> {formatter.format(this.state.totalAmount)}
                                 </p>
                                 <Button onClick={() => this.sortLargeTransaction()}>
                                     Sort by largest deposit
@@ -130,7 +136,7 @@ class Transactions extends Component {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <div>
-                                                <b>Amount: </b> ${transaction.amount}
+                                                <b>Amount:</b> {formatter.format(transaction.amount)}
                                                 <br/>
                                                 <b>Date:</b>
                                                 {' '}{transaction.date}
