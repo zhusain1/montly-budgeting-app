@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from "react-router-dom";
-import logo from '../logo.png';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -27,7 +26,8 @@ export default function Navbar() {
                 <Toolbar>
                     <Typography variant="h6" className={classes.root}>
                         <Link to='/'>
-                            <img src={logo} alt=""/>
+                            <div className='logo'>
+                            </div>
                         </Link>
                     </Typography>
                     <Typography variant="h6" className={classes.root}>

@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import logo from '../logo.png';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -37,7 +36,8 @@ export default function LoggedInNavbar() {
                 <Toolbar>
                     <Typography variant="h6" className={classes.root}>
                         <Link to='/'>
-                            <img src={logo} alt=""/>
+                        <div className='logo'>
+                        </div>
                         </Link>
                     </Typography>
                     <Button onClick={logout}>
