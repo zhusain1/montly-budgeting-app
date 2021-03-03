@@ -167,8 +167,9 @@ class Login extends Component {
             }
         })
         .catch(err => {
+
             this.setState({
-                error: err.response.data,
+                error: err.response.data.error,
                 password: ''
             })
         })
