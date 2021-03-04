@@ -60,6 +60,10 @@ class Create extends Component {
         .catch(err => {
             this.setState({
                 error: err.response.data,
+                email: '',
+                firstName: '',
+                lastName: '',
+                password: '',
                 linkBank: false
             })
         })
@@ -85,16 +89,16 @@ class Create extends Component {
                     Create Account
                 </Typography>
                 <form onSubmit={this.handleSubmit} autoComplete="off" >
-                    <TextField id="username" label="email" onChange={e => this.setState({email: e.target.value})}/>
+                    <TextField id="username" label="email" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
                     <br/>
                     <br/>
-                    <TextField id="firstName" label="first name" onChange={e => this.setState({firstName: e.target.value})}/>
+                    <TextField id="firstName" label="first name" value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
                     <br/>
                     <br/>
-                    <TextField id="lastName" label="last name" onChange={e => this.setState({lastName: e.target.value})}/>
+                    <TextField id="lastName" label="last name" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
                     <br/>
                     <br/>
-                    <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
+                    <TextField id="password" label="password" value={this.state.password} type="password" onChange={e => this.setState({password: e.target.value})}/>
                     <br/>
                     <br/>
                     <Button variant="outlined" type="submit">

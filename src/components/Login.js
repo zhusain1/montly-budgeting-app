@@ -79,7 +79,9 @@ class Login extends Component {
 
         }).catch(err => {
             this.setState({
-                error: 'Error logging in with account'
+                error: 'Error logging in with account',
+                email: '',
+                password: ''
             })
         })
     }
@@ -99,10 +101,10 @@ class Login extends Component {
                         <form onSubmit={this.handleSubmit} autoComplete="off">
                             <TextField id="username" label="email" 
                             InputProps={{className: classes.input}}
-                            onChange={e => this.setState({email: e.target.value})} size="medium"/>
+                            onChange={e => this.setState({email: e.target.value})} size="medium" value={this.state.email}/>
                             <br/>
                             <br/>
-                            <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})}/>
+                            <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})} value={this.state.password}/>
                             <br/>
                             <br/>
                             <Button variant="outlined" type="submit">

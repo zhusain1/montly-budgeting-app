@@ -4,6 +4,7 @@ import React from 'react';
 import Transactions from './components/Transactions';
 import Login from './components/Login';
 import Create from './components/Create';
+import ForgotPassword from './components/ForgotPassword';
 import Logout from './functional_components/Logout'
 import Error from './functional_components/Error'
 import {
@@ -20,6 +21,7 @@ ReactDOM.render(
                 <Route exact path = "/create" component={Create} />
                 <Route exact path = "/logout" component={Logout} />
                 <Route exact path="/transactions" component={Transactions} />
+                <Route exact path="/ForgotPassword" component={ForgotPassword} />
                 <Route component={Error} />
             </Switch>
     </Router>,
