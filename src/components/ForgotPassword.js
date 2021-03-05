@@ -7,6 +7,7 @@ import '../App.css';
 import Alert from '@material-ui/lab/Alert';
 import MainCard from '../functional_components/MainCard';
 import Navbar from '../functional_components/Navbar'
+import { withRouter } from 'react-router-dom';
 
 class ForgotPassword extends Component {
 
@@ -20,7 +21,8 @@ class ForgotPassword extends Component {
             password: '',
             confirmPassword: '',
             showEmailCodePage: false,
-            showResetPasswordPage: false
+            showResetPasswordPage: false,
+            redirect: false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,49 +34,39 @@ class ForgotPassword extends Component {
 
         e.preventDefault();
 
-        if(this.state.emailCode === '5555'){
-            this.setState({
-                showResetPasswordPage: true
-            });
+        const req = {
+            email: this.state.email,
+            emailCode: this.state.emailCode
         }
 
-        console.log(this.state)
+        this.callServer('/validateCode', req, 'showResetPasswordPage')
     } 
 
     handleResetPassword = (e) => {
 
         e.preventDefault();
 
-        if(this.state.password === this.state.confirmPassword){
-            // redirect to login page
-            console.log('resetting password')
+        const req = {
+            password: this.state.password,
+            confirmPassword: this.state.confirmPassword,
+            email: this.state.email
         }
 
-        console.log(this.state)
+        api({
+            method: 'post',
+            url: '/updatePassword',
+            data: req
+        }).then((res) => {
+            this.props.history.push('/');
+        }).catch(err => {
+            this.setState({
+                error: err.response.data               
+            })
+        })
     } 
 
-    handleSubmit = (e) => {
 
-        e.preventDefault();
-       
-        if(this.state.email === 'zulfihusain1996@gmail.com'){
-            
-            this.setState({
-                showEmailCodePage: true
-            });
-        } else{
-           // ERROR
-        }
-
-
-       // TODO: implement api call
-        /* e.preventDefault();
-
-        const url = '/resetPassword'
-
-        const req = {
-            email: this.state.email, 
-        };
+    callServer = (url, req, prop) => {
 
         api({
             method: 'post',
@@ -82,15 +74,25 @@ class ForgotPassword extends Component {
             data: req
         }).then((res) => {
             this.setState({
-                error: ''
+                error: '' ,
+                [prop]: true             
             })
-            
-        })
-        .catch(err => {
+        }).catch(err => {
             this.setState({
                 error: err.response.data               
             })
-        }) */
+        })
+    }
+
+    handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        const req = {
+            email: this.state.email
+        }
+
+        this.callServer('/sendEmail', req, 'showEmailCodePage')
     } 
 
     resetPassword = () => {
@@ -176,6 +178,9 @@ class ForgotPassword extends Component {
     }
 
     renderDisplay = () => {
+
+        console.log(this.state)
+
         if(this.state.showResetPasswordPage){
             return this.resetPassword();  
         } else if(this.state.showEmailCodePage){
@@ -202,4 +207,4 @@ class ForgotPassword extends Component {
     }
 }
 
-export default ForgotPassword;
+export default withRouter(ForgotPassword);
