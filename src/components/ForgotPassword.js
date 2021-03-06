@@ -165,7 +165,7 @@ class ForgotPassword extends Component {
                     Forgot Password
                 </Typography>
                 <form className ="emailForm" onSubmit={this.handleSubmit} autoComplete="off" >
-                    <TextField id="username" label="email" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+                    <TextField id="username" label="Enter email" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
                     <br/>
                     <br/>
                     <Button variant="outlined" type="submit">

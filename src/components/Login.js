@@ -9,6 +9,7 @@ import api from '../apis';
 import ListAccounts from '../functional_components/ListAccounts';
 import MainCard from '../functional_components/MainCard';
 import Navbar from '../functional_components/Navbar';
+import Footer from '../functional_components/Footer';
 import LoggedInNavbar from '../functional_components/LoggedInNavbar';
 import Alert from '@material-ui/lab/Alert';
 
@@ -110,6 +111,9 @@ class Login extends Component {
                             <Button variant="outlined" type="submit">
                                 Login
                             </Button>
+                            <br/>
+                            <br/>
+                            <Footer/>
                         </form>
                         <br/>
                     </div>
