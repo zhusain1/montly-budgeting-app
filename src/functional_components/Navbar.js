@@ -26,13 +26,12 @@ export default function Navbar() {
                 <Toolbar>
                     <Typography variant="h6" className={classes.root}>
                         <Link to='/'>
-                            <div className='logo'>
+                            <div className="container">
+                                <div className="imageContainer">
+                                    <div className='logo'>
+                                    </div>
+                                </div> 
                             </div>
-                        </Link>
-                    </Typography>
-                    <Typography variant="h6" className={classes.root}>
-                        <Link to='/create'>
-                            Create Account
                         </Link>
                     </Typography>
                 </Toolbar>

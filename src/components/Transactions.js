@@ -79,6 +79,17 @@ class Transactions extends Component {
         );
     }
 
+    getTotalDepositAmount = () => {
+        var total = 0;
+
+        this.state.transactions.forEach(transaction => {
+            if(transaction.amount > 0){
+                total = total + transaction.amount;
+            }
+        });
+        return total
+    }
+
     sortLargeWithdrawls = () => {
         this.transactionData('/LowToHighSortedAccountTransactionDetails');
     }
@@ -107,6 +118,9 @@ class Transactions extends Component {
                                 </p>
                                 <p>
                                     <b> Monthly Spending:  </b> {formatter.format(this.state.totalAmount)}
+                                </p>
+                                <p>
+                                    <b> Monthly Deposit:  </b> {formatter.format(this.getTotalDepositAmount())}
                                 </p>
                                 <Button onClick={() => this.sortLargeTransaction()}>
                                     Sort by largest deposit
