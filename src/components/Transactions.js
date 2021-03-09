@@ -7,6 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import MainCard from '../functional_components/MainCard';
@@ -102,6 +103,40 @@ class Transactions extends Component {
         this.transactionData('/AccountTransactionDetails');
     }
 
+    displayFilters = () => {
+        return (
+            <div>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        >
+                            <div className="filter">
+                                <h4>
+                                <span className="icon">
+                                <   FilterListIcon/>
+                                </span>
+                                    Filter
+                                </h4>
+                            </div>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Button onClick={() => this.sortLargeTransaction()}>
+                            Sort by largest deposit
+                        </Button>
+                        <Button onClick={() => this.sortDateTransaction()}>
+                            Sort by date
+                        </Button>
+                        <Button onClick={() => this.sortLargeWithdrawls()}>
+                            Sort by largest withdrawal
+                        </Button>
+                    </AccordionDetails>
+                </Accordion>
+            </div>
+        );
+    }
+
     render(){
         return(
             <>
@@ -122,18 +157,8 @@ class Transactions extends Component {
                                 <p>
                                     <b> Monthly Deposit:  </b> {formatter.format(this.getTotalDepositAmount())}
                                 </p>
-                                <Button onClick={() => this.sortLargeTransaction()}>
-                                    Sort by largest deposit
-                                </Button>
-                                <br/>
-                                <Button onClick={() => this.sortLargeWithdrawls()}>
-                                    Sort by largest withdrawal
-                                </Button>
-                                <br/>
-                                <Button onClick={() => this.sortDateTransaction()}>
-                                    Sort by date
-                                </Button>
-                                <br/>
+                                
+                                {this.displayFilters()}
                                 {this.state.transactions.map((transaction, index) =>
                                     <Accordion key={index}>
                                         <AccordionSummary

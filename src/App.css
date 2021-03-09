@@ -120,6 +120,10 @@ a.link:hover, a.link:active{
     text-decoration: underline;     
 }
 
+.filter{
+    margin-bottom: -6px;
+}
+
 /* Media Queries */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 568px) 
