@@ -115,7 +115,7 @@ class Transactions extends Component {
                             <div className="filter">
                                 <h4>
                                 <span className="icon">
-                                <   FilterListIcon/>
+                                <FilterListIcon/>
                                 </span>
                                     Filter
                                 </h4>
