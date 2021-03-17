@@ -34,10 +34,10 @@ class Login extends Component {
 
             console.log('Mounting and setting local state');
 
-            const {accounts, access_token} = JSON.parse(sessionStorage.getItem('loggedIn'));
+            const {accounts, access_token, email} = JSON.parse(sessionStorage.getItem('loggedIn'));
 
             this.state = {
-                email: '',
+                email: email,
                 password: '',
                 accounts: accounts,
                 accessToken: access_token,
@@ -48,7 +48,7 @@ class Login extends Component {
                 email: '',
                 password: '',
                 accounts: '',
-                accessToken: '',
+                accessToken: [],
                 error: ''
              };
         }
@@ -58,21 +58,22 @@ class Login extends Component {
 
         const url = '/TransactionDetails'
 
-        const req = {
-            access_token : accessToken,
-        };
+        const req = accessToken;
 
         api({
             method: 'post',
             url: url,
             data: req
-        }).then((res) => {        
+        }).then((res) => {       
+            
+            console.log(res)
+            
             this.setState({
                 accounts: res.data,
                 error: ''
             })
 
-            const loggedIn = { access_token: accessToken, accounts: res.data, loggedIn: true }
+            const loggedIn = { access_token: accessToken, accounts: res.data, email: this.state.email, loggedIn: true }
 
             console.log(this.state);
 
@@ -154,30 +155,39 @@ class Login extends Component {
             url: url,
             data: req
         }).then((res) => {
-            if(res.data.access_token.length !== 0){
+
+            console.log(res.data.access_tokens.length)
+
+            if(res.data.access_tokens.length > 0){
+
+                console.log(res.data)
+
                 this.setState({
-                    accessToken: res.data.access_token
+                    accessToken: res.data.access_tokens
                 });
+
+                console.log(this.state.accessToken);
     
-                this.transactionData(res.data.access_token);
+                this.transactionData( this.state.accessToken );
             } else{
                 this.setState({
-                    email: res.data.email
+                    email: res.data.email[0]
                 });
 
 
                 this.props.history.push({
                     pathname: '/create',
-                    state: { email: this.state.email }
+                    state: { email: this.state.email[0] }
                   })
             }
         })
         .catch(err => {
-
-            this.setState({
-                error: err.response.data.error,
-                password: ''
-            })
+            if(err.response){
+                this.setState({
+                    error: err.response.data.error,
+                    password: ''
+                })
+            }
         })
     } 
 

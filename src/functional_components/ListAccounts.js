@@ -37,7 +37,6 @@ const getTotalAccountBalance  = (accounts) => {
 export default function ListAccounts({props}) {
     const classes = useStyles();
 
-
     return (
         <div className={classes.root}>
             <Typography variant="h5">
@@ -65,7 +64,7 @@ export default function ListAccounts({props}) {
                         <Link
                             to={{
                                 pathname: "/transactions" ,
-                                state: { account: account, token: props.accessToken }
+                                state: { account: account, token: account.access_token }
                             }}
                             className = "link"
                             >

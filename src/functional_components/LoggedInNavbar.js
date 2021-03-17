@@ -40,6 +40,11 @@ export default function LoggedInNavbar() {
                         </div>
                         </Link>
                     </Typography>
+                    <Typography variant="h6" className={classes.root}>
+                        <Link to='/addBank'>
+                            Add Bank
+                        </Link>
+                    </Typography>
                     <Button onClick={logout}>
                         Logout
                     </Button>

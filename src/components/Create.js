@@ -28,6 +28,7 @@ class Create extends Component {
            lastName: '',
            password: '',
            error: '',
+           institution: '',
            linkBank: propLinkBank
         };
 
@@ -64,6 +65,7 @@ class Create extends Component {
                 firstName: '',
                 lastName: '',
                 password: '',
+                institution: '',
                 linkBank: false
             })
         })
@@ -72,7 +74,7 @@ class Create extends Component {
     linkBank = () => {
         if(this.state.linkBank){
             return(
-                <LinkBank email={this.state.email}/>
+                <LinkBank props = {{ email: this.state.email, institution: this.state.institution}} />
             );
         } else{
             return this.createAccount();
@@ -99,6 +101,9 @@ class Create extends Component {
                     <br/>
                     <br/>
                     <TextField id="password" label="password" value={this.state.password} type="password" onChange={e => this.setState({password: e.target.value})}/>
+                    <br/>
+                    <br/>
+                    <TextField id="institution" label="bank" value={this.state.institution} onChange={e => this.setState({institution: e.target.value})}/>
                     <br/>
                     <br/>
                     <Button variant="outlined" type="submit">
