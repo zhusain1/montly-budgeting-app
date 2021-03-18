@@ -65,6 +65,8 @@ class AddBank extends Component {
         this.setState({
             displayPlaidLink: true
         });
+
+        console.log(this.state);
     } 
 
 
@@ -89,7 +91,6 @@ class AddBank extends Component {
         if(this.state.displayPlaidLink){
             return this.renderLink();
         } 
-        
         
         else{
             return this.addInstitution();
@@ -150,14 +151,51 @@ class AddBank extends Component {
             institution: this.state.institution
         };
 
+        console.log(req)
+
         api({
             method: 'post',
             url: url,
             data: req
         }).then((res) => {
             console.log(res.data)
+
+            this.transactionData(res.data)
         })
     }
+
+    transactionData = (accessToken) => {
+
+        const url = '/TransactionDetails'
+
+        const req = accessToken;
+
+        api({
+            method: 'post',
+            url: url,
+            data: req
+        }).then((res) => {       
+            
+            console.log(res)
+            
+            this.setState({
+                accounts: res.data,
+                error: ''
+            })
+
+            const loggedIn = { access_token: accessToken, accounts: res.data, email: this.state.email, loggedIn: true }
+
+            sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+
+            this.props.history.push('/');
+
+        }).catch(err => {
+            this.setState({
+                error: 'Error logging in with account',
+            })
+        })
+    }
+
 
     redirectToLogin(){
         const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, loggedIn: true }

@@ -14,7 +14,7 @@ class LinkBank extends Component {
         this.state = {
             linkToken:  '',
             accounts: [],
-            accessToken: '',
+            accessToken: [],
             email: this.props.props.email,
             institution: this.props.props.institution
         };
@@ -36,9 +36,12 @@ class LinkBank extends Component {
 
         const url = '/TransactionDetails'
 
-        const req = {
-            access_token : accessToken,
-        };
+        const req =  [];
+        
+        req.push({
+            access_token: accessToken,
+            institution: this.state.institution
+        });
 
         api({
             method: 'post',
@@ -98,7 +101,7 @@ class LinkBank extends Component {
     }
 
     redirectToLogin(){
-        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, loggedIn: true }
+        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, email: this.state.email, loggedIn: true }
 
         sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
 
