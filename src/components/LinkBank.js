@@ -9,11 +9,14 @@ class LinkBank extends Component {
     constructor(props){
         super(props);
 
+        console.log(this.props)
+
         this.state = {
             linkToken:  '',
             accounts: [],
-            accessToken: '',
-            email: this.props.email
+            accessToken: [],
+            email: this.props.props.email,
+            institution: this.props.props.institution
         };
 
         const url = '/LinkToken'
@@ -33,9 +36,12 @@ class LinkBank extends Component {
 
         const url = '/TransactionDetails'
 
-        const req = {
-            access_token : accessToken,
-        };
+        const req =  [];
+        
+        req.push({
+            access_token: accessToken,
+            institution: this.state.institution
+        });
 
         api({
             method: 'post',
@@ -79,20 +85,23 @@ class LinkBank extends Component {
 
         const req = {
             email: this.state.email, 
-            access_token: accessToken
+            access_token: accessToken,
+            institution: this.state.institution
         };
+
+        console.log( req );
 
         api({
             method: 'post',
             url: url,
             data: req
         }).then((res) => {
-    
+            console.log(res.data)
         })
     }
 
     redirectToLogin(){
-        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, loggedIn: true }
+        const loggedIn = { access_token: this.state.accessToken, accounts: this.state.accounts, email: this.state.email, loggedIn: true }
 
         sessionStorage.setItem('loggedIn', JSON.stringify(loggedIn));
 
@@ -102,6 +111,11 @@ class LinkBank extends Component {
     render() {
         return (
                 <div className= "Plaid">
+                    {this.state.accounts.length > 0 && 
+                        <>
+                            { this.redirectToLogin() }
+                        </>
+                    }
                     {this.state.accounts.length < 1 && 
                     <> 
                         <Typography variant="h6">
@@ -115,11 +129,6 @@ class LinkBank extends Component {
                                 Connect to bank
                         </PlaidLink>
                     </>
-                    }
-                    {this.state.accounts.length > 0 && 
-                        <>
-                            { this.redirectToLogin() }
-                        </>
                     }
                 </div>
         );
