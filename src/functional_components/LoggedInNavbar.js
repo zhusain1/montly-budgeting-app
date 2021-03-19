@@ -9,10 +9,7 @@ import { useHistory } from "react-router";
 
 const useStyles = makeStyles(() => ({
     root: {
-        margin: '15px',
-        marginBottom: '-2px',
-        textAlign: 'center',
-        whiteSpace: 'nowrap'
+        margin: '5px',
     },
 
     nav: {
@@ -31,7 +28,7 @@ export default function LoggedInNavbar() {
 
     const classes = useStyles();
     return (
-        <div>
+        <div className = 'loggedInNavbar'>
             <AppBar position="relative" className={classes.nav}>
                 <Toolbar>
                     <Typography variant="h6" className={classes.root}>
