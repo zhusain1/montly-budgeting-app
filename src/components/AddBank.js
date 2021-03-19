@@ -46,7 +46,7 @@ class AddBank extends Component {
                     displayPlaidLink: false
                     };   
             } catch (error) {
-                this.props.history.push();
+                this.props.history.push('/');
             }
         } else{
 
