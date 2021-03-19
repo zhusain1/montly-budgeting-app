@@ -36,14 +36,18 @@ class AddBank extends Component {
 
             const {accounts, access_token, email} = JSON.parse(sessionStorage.getItem('loggedIn'));
 
-            this.state = {
-                email: email,
-                institution: '',
-                accounts: accounts,
-                accessToken: access_token,
-                error: '',
-                displayPlaidLink: false
-             };
+            try {
+                this.state = {
+                    email: email,
+                    institution: '',
+                    accounts: accounts,
+                    accessToken: access_token,
+                    error: '',
+                    displayPlaidLink: false
+                    };   
+            } catch (error) {
+                this.props.history.push();
+            }
         } else{
 
             this.state = {
