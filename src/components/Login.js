@@ -41,7 +41,7 @@ class Login extends Component {
                 password: '',
                 accounts: accounts,
                 accessToken: access_token,
-                error: ''
+                error: '',
              };
         } else{
             this.state = {
@@ -49,7 +49,7 @@ class Login extends Component {
                 password: '',
                 accounts: '',
                 accessToken: [],
-                error: ''
+                error: '',
              };
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -106,10 +106,11 @@ class Login extends Component {
                             onChange={e => this.setState({email: e.target.value})} size="medium" value={this.state.email}/>
                             <br/>
                             <br/>
-                            <TextField id="password" label="password" type="password" onChange={e => this.setState({password: e.target.value})} value={this.state.password}/>
+                            <TextField id="password" label="password" type="password" 
+                            onChange={e => this.setState({password: e.target.value})} value={this.state.password}/>
                             <br/>
                             <br/>
-                            <Button variant="outlined" type="submit">
+                            <Button variant="outlined" type="submit" disabled = {!this.state.email || !this.state.password}>
                                 Login
                             </Button>
                             <br/>
