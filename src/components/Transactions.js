@@ -12,7 +12,8 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import MainCard from '../functional_components/MainCard';
 import LoggedInNavbar from '../functional_components/LoggedInNavbar';
-
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -41,14 +42,31 @@ class Transactions extends Component {
             account: tempAccount,
             accessToken: tempToken,
             transactions: [],
-            totalAmount: 0
+            totalAmount: 0,
+            searchTransaction: ""
         };
 
         this.transactionData('/AccountTransactionDetails');
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidCatch(error, info) {
         this.props.history.push('/');
+    }
+
+    handleSearch = (e) => {
+        e.preventDefault();
+        console.log(this.state.searchTransaction);
+        if(this.state.searchTransaction.length > 0){
+            this.state.transactions.forEach(transaction => {
+                if(transaction.name === this.searchTransaction){
+                    let t = new Array(transaction);
+                    this.setState({
+                        transactions: t
+                    });
+                }
+            });
+        } 
     }
 
     transactionData = (url) => {
@@ -114,10 +132,31 @@ class Transactions extends Component {
                         >
                             <div className="filter">
                                 <h4>
-                                <span className="icon">
-                                <FilterListIcon/>
-                                </span>
-                                    Filter
+                                    <span className="icon">
+                                        <FilterListIcon/>
+                                    </span>
+                                        Filter
+                                    <br/>
+                                    <br/>
+                                    <form id="search_transaction" onSubmit={this.handleSearch}>
+                                        <Autocomplete
+                                            freeSolo
+                                            disableClearable
+                                            options={this.state.transactions.map((transaction) => transaction.name)}
+                                            renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Search transaction"
+                                                InputProps={{ ...params.InputProps, type: 'search' }}
+                                                onInputChange={(e, value) => this.setState({searchTransaction: e.target.value})} 
+                                                value={this.state.searchTransaction}
+                                            />
+                                            )}
+                                        />
+                                    <Button className="searchTransaction" type="submit">
+                                        search
+                                    </Button>
+                                    </form>
                                 </h4>
                             </div>
                     </AccordionSummary>
