@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import apis from '../apis';
+import api from '../apis';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -8,12 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import MainCard from '../functional_components/MainCard';
 import LoggedInNavbar from '../functional_components/LoggedInNavbar';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -43,30 +45,40 @@ class Transactions extends Component {
             accessToken: tempToken,
             transactions: [],
             totalAmount: 0,
-            searchTransaction: ""
+            categories: []
         };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
+    componentDidMount(){
         this.transactionData('/AccountTransactionDetails');
-        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidCatch(error, info) {
         this.props.history.push('/');
     }
 
-    handleSearch = (e) => {
-        e.preventDefault();
-        console.log(this.state.searchTransaction);
-        if(this.state.searchTransaction.length > 0){
-            this.state.transactions.forEach(transaction => {
-                if(transaction.name === this.searchTransaction){
-                    let t = new Array(transaction);
-                    this.setState({
-                        transactions: t
-                    });
-                }
+
+    handleChange = (e) => {
+        console.log(e.target.value)
+
+        const req = {
+            access_token : this.state.accessToken,
+            account_id:  this.state.account.account_id,
+            category: e.target.value
+        };
+
+        api({
+            method: 'post',
+            url: '/category/account',
+            data: req
+        }).then((res) => {
+            this.setState({
+                transactions: res.data.transactions,
             });
-        } 
+        })
+
+        this.getCategoryList();
     }
 
     transactionData = (url) => {
@@ -75,7 +87,7 @@ class Transactions extends Component {
             account_ids:  this.state.account.account_id
         };
 
-        apis({
+        api({
             method: 'post',
             url: url,
             data: req
@@ -84,6 +96,8 @@ class Transactions extends Component {
                 transactions: res.data.transactions,
                 totalAmount: res.data.totalAmount
             });
+
+            this.getCategoryList();
         })
     }
 
@@ -91,9 +105,7 @@ class Transactions extends Component {
         return(
             <div>
                 <b> Category: </b>
-                {transaction.category.map((category, index) =>
-                    <span key={index}> {category} </span>
-                )}
+                {transaction.category}
             </div>
         );
     }
@@ -121,6 +133,51 @@ class Transactions extends Component {
         this.transactionData('/AccountTransactionDetails');
     }
 
+
+    getCategoryList = () => {
+
+        var categoryList = [];
+
+        console.log(this.state)
+
+        this.state.transactions.forEach(transaction => {
+            categoryList.push(transaction.category)
+        });
+
+        const req = {
+            categories: categoryList
+        };
+
+        console.log( req )
+
+        let url = '/categories/account'
+
+        api({
+            method: 'post',
+            url: url,
+            data: req
+        }).then((res) => {
+            // success
+            this.setState({
+                categories: res.data
+            });
+        })
+        .catch(err => {
+            // fail
+        })
+    }
+
+    getListOptions = () =>  {
+       
+        // call endpoint to get distinct categories by account id
+        return (
+        this.state.categories.map((category, index) =>
+            <MenuItem key={index} value={category}> 
+                    {category}
+            </MenuItem>
+        ));
+    }
+
     displayFilters = () => {
         return (
             <div>
@@ -137,39 +194,35 @@ class Transactions extends Component {
                                     </span>
                                         Filter
                                     <br/>
-                                    <br/>
-                                    <form id="search_transaction" onSubmit={this.handleSearch}>
-                                        <Autocomplete
-                                            freeSolo
-                                            disableClearable
-                                            options={this.state.transactions.map((transaction) => transaction.name)}
-                                            renderInput={(params) => (
-                                            <TextField
-                                                {...params}
-                                                label="Search transaction"
-                                                InputProps={{ ...params.InputProps, type: 'search' }}
-                                                onInputChange={(e, value) => this.setState({searchTransaction: e.target.value})} 
-                                                value={this.state.searchTransaction}
-                                            />
-                                            )}
-                                        />
-                                    <Button className="searchTransaction" type="submit">
-                                        search
-                                    </Button>
-                                    </form>
                                 </h4>
                             </div>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Button onClick={() => this.sortLargeTransaction()}>
-                            Sort by largest deposit
-                        </Button>
-                        <Button onClick={() => this.sortDateTransaction()}>
-                            Sort by date
-                        </Button>
-                        <Button onClick={() => this.sortLargeWithdrawls()}>
-                            Sort by largest withdrawal
-                        </Button>
+                        <div className="filters">
+                            <Button onClick={() => this.sortLargeTransaction()}>
+                                Sort by largest deposit
+                            </Button>
+                            <Button onClick={() => this.sortDateTransaction()}>
+                                Sort by date
+                            </Button>
+                            <Button onClick={() => this.sortLargeWithdrawls()}>
+                                Sort by largest withdrawal
+                            </Button>
+                        </div>
+                        <div className = "search">
+                            <br/>
+                            <FormControl>
+                                <InputLabel id="filter_category">Filter Category</InputLabel>
+                                <Select
+                                    labelId="filter_category"
+                                    id="filter_category_select"
+                                    value={this.state.searchTransaction}
+                                    onChange={this.handleChange}
+                                >
+                                    {this.getListOptions()}
+                                </Select>
+                            </FormControl>
+                        </div>
                     </AccordionDetails>
                 </Accordion>
             </div>
@@ -181,7 +234,7 @@ class Transactions extends Component {
             <>
                 <LoggedInNavbar/>
                     <MainCard>
-                        <div> 
+                        <div style={{  fontWeight: 500 }}> 
                             {this.state.accessToken.length > 0 &&
                             <div id= "transactions">
                                 <p>

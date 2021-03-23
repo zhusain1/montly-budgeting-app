@@ -23,10 +23,10 @@ export default function MainCard({children}) {
     <React.Fragment>
         <CssBaseline />
         <Container maxWidth="sm">
-            <Card className={classes.card} variant="outlined">
-                <Typography component="div" style={{  textAlign: 'center' }}>
-                    { children }
-                </Typography>
+            <Card className={classes.card} variant="outlined">      
+                    <Typography component="div" style={{  textAlign: 'center' }}>
+                            { children }
+                    </Typography>
             </Card> 
         </Container>
     </React.Fragment>
