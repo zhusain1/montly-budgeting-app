@@ -136,16 +136,9 @@ class Transactions extends Component {
 
     getCategoryList = () => {
 
-        var categoryList = [];
-
-        console.log(this.state)
-
-        this.state.transactions.forEach(transaction => {
-            categoryList.push(transaction.category)
-        });
-
         const req = {
-            categories: categoryList
+            access_token : this.state.accessToken,
+            account_id:  this.state.account.account_id,
         };
 
         console.log( req )
@@ -218,6 +211,7 @@ class Transactions extends Component {
                                     id="filter_category_select"
                                     value={this.state.searchTransaction}
                                     onChange={this.handleChange}
+                                    defaultValue = ""
                                 >
                                     {this.getListOptions()}
                                 </Select>
