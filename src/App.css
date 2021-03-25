@@ -20,9 +20,19 @@ body, html{
     color: white;
     margin-bottom: 20px;
 }
-
 .MuiAccordionDetails-root{
+    display: block !important;
     text-align: left;
+}
+
+.filters{
+    text-align: center;
+    display: flex;
+}
+
+.search{
+    display: inline-block;
+    text-align: center !important;
 }
 
 .icon{
@@ -51,6 +61,10 @@ img {
 
 .MuiFormLabel-root.Mui-focused {
    color: black !important;
+}
+
+.MuiSelect-select {
+    min-width: 200px !important;
 }
 
 input{
@@ -107,7 +121,6 @@ a.link:hover, a.link:active{
 .footer a{
     color: black !important; 
     text-decoration: none;
-    letter-spacing: -1px;  
 }
 
 .footer a:visited{
@@ -130,8 +143,8 @@ button:disabled{
 
 /* Media Queries */
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 568px) 
-and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71)
-{
-
+@media only screen and (max-width: 600px) {
+    #search_transaction input{
+        width: 200px !important;
+    }
 }
