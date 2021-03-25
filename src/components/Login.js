@@ -6,11 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from 'react-router-dom';
 import api from '../apis';
-import ListAccounts from '../functional_components/ListAccounts';
 import MainCard from '../functional_components/MainCard';
 import Navbar from '../functional_components/Navbar';
 import Footer from '../functional_components/Footer';
-import LoggedInNavbar from '../functional_components/LoggedInNavbar';
 import Alert from '@material-ui/lab/Alert';
 
 const styles = () => ({
@@ -129,14 +127,13 @@ class Login extends Component {
         if(this.state.accounts.length < 1){
             return this.loginForm(classes);
         } else{
-            return (
-                <>
-                    <LoggedInNavbar/>
-                    <MainCard>
-                        <ListAccounts props={this.state}/>  
-                    </MainCard> 
-                </>
-            );
+
+            let data = this.state
+
+            this.props.history.push({
+                pathname: '/accounts',
+                state: { data }
+            })
         }
     }
 

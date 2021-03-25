@@ -6,8 +6,9 @@ import Login from './components/Login';
 import Create from './components/Create';
 import AddBank from './components/AddBank';
 import ForgotPassword from './components/ForgotPassword';
-import Logout from './functional_components/Logout'
-import Error from './functional_components/Error'
+import Logout from './functional_components/Logout';
+import ListAccountsWrapper from './functional_components/ListAccountsWrapper';
+import Error from './functional_components/Error';
 import {
     BrowserRouter as Router,
     Route,
@@ -23,6 +24,7 @@ ReactDOM.render(
                 <Route exact path = "/logout" component={Logout} />
                 <Route exact path="/transactions" component={Transactions} />
                 <Route exact path="/addBank" component={AddBank} />
+                <Route exact path="/accounts" component={ListAccountsWrapper} />
                 <Route exact path="/ForgotPassword" component={ForgotPassword} />
                 <Route component={Error} />
             </Switch>
