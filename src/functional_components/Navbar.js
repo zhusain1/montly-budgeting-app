@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     root: {
-        margin: '15px',
+        margin: '5px',
         marginBottom: '-2px',
         textAlign: 'center',
         whiteSpace: 'nowrap'

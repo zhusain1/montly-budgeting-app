@@ -10,6 +10,8 @@ import { useHistory } from "react-router";
 const useStyles = makeStyles(() => ({
     root: {
         margin: '5px',
+        marginBottom: '-2px',
+        textAlign: 'center',
     },
 
     nav: {
