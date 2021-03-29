@@ -121,9 +121,17 @@ class Transactions extends Component {
         return total
     }
 
-    sortLargeWithdrawls = () => {
-        this.transactionData('/LowToHighSortedAccountTransactionDetails');
+    getTotalWithdrawalAmount = () => {
+        var total = 0;
+
+        this.state.transactions.forEach(transaction => {
+            if(transaction.amount < 0){
+                total = total + transaction.amount;
+            }
+        });
+        return total
     }
+
 
     sortLargeTransaction = () => {
         this.transactionData('/SortedAccountTransactionDetails');
@@ -238,7 +246,7 @@ class Transactions extends Component {
                                     <b> Total balance:  </b> {formatter.format(this.state.account.balances.current)}
                                 </p>
                                 <p>
-                                    <b> Monthly Spending:  </b> {formatter.format(this.state.totalAmount)}
+                                    <b> Monthly Spending:  </b> {formatter.format(this.getTotalWithdrawalAmount())}
                                 </p>
                                 <p>
                                     <b> Monthly Deposit:  </b> {formatter.format(this.getTotalDepositAmount())}
