@@ -66,10 +66,27 @@ class AddBank extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        this.setState({
-            displayPlaidLink: true
-        });
+        const url = '/bank'
 
+        api({
+            method: 'post',
+            url: url,
+            data: { institution: this.state.institution }
+        }).then((res) => {       
+            
+            console.log(res)
+            
+            this.setState({
+                error: '',
+                displayPlaidLink: true
+            });
+
+        }).catch(err => {
+            this.setState({
+                error: 'Bank Unavailable',
+                displayPlaidLink: false
+            })
+        })
         console.log(this.state);
     } 
 
@@ -113,7 +130,7 @@ class AddBank extends Component {
                     <TextField id="institution" label="Add bank" value={this.state.institution} onChange={e => this.setState({institution: e.target.value})}/>
                     <br/>
                     <br/>
-                    <Button variant="outlined" type="submit">
+                    <Button variant="outlined" type="submit" disabled = {!this.state.institution}>
                         Add
                     </Button>
                 </form>

@@ -45,6 +45,7 @@ class Create extends Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
+            institution: this.state.institution
         };
 
         api({
@@ -61,9 +62,6 @@ class Create extends Component {
         .catch(err => {
             this.setState({
                 error: err.response.data,
-                email: '',
-                firstName: '',
-                lastName: '',
                 password: '',
                 institution: '',
                 linkBank: false
@@ -79,6 +77,11 @@ class Create extends Component {
         } else{
             return this.createAccount();
         }
+    }
+
+    disableButton = () => {
+        return !this.state.email || !this.state.firstName
+        || !this.state.lastName || !this.state.password || !this.state.institution
     }
 
     createAccount = () => {
@@ -106,7 +109,7 @@ class Create extends Component {
                     <TextField id="institution" label="bank" value={this.state.institution} onChange={e => this.setState({institution: e.target.value})}/>
                     <br/>
                     <br/>
-                    <Button variant="outlined" type="submit">
+                    <Button variant="outlined" type="submit" disabled = { this.disableButton() }>
                         Create
                     </Button>
                 </form>
