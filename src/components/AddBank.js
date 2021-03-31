@@ -84,6 +84,7 @@ class AddBank extends Component {
         }).catch(err => {
             this.setState({
                 error: 'Bank Unavailable',
+                institution: '',
                 displayPlaidLink: false
             })
         })
