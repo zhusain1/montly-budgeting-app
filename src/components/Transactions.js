@@ -141,6 +141,9 @@ class Transactions extends Component {
         this.transactionData('/AccountTransactionDetails');
     }
 
+    sortLargeWithdrawls = () => {
+        this.transactionData('/LowToHighSortedAccountTransactionDetails');
+    }
 
     getCategoryList = () => {
 
